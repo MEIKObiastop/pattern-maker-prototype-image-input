@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Make a Pattern</h1>
+
+<!-- アップロードボタンは上端 -->
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" value="アップロード">
+</form>
+
+{% if uploaded_image_url %}
+<div style="display:flex; margin-top:20px;">
+    <!-- 左側：アップロード画像 -->
+    <div style="flex:1; text-align:center;">
+        <img src="{{ uploaded_image_url }}" style="max-width:100%; height:auto;">
+    </div>
+
+    <!-- 右側：解析結果＋ボタン -->
+    <div style="flex:1; padding-left:20px;">
+        <p>このアイテムを {{ upload_label }} として</p>
+        <form method="post" action="{{ url_for('make_pattern') }}">
+            <button type="submit">パターンを作成</button>
+        <p>{{ result_text }}</p>
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
